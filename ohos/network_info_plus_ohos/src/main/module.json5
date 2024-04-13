@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "network_info_plus_ohos",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}
