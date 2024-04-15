@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Workaround to get Ipv6Info
+
 ## 0.0.2
 
 * flutter: ">=3.7.0"

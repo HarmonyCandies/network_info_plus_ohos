@@ -7,7 +7,6 @@ import MethodChannel, {
   MethodResult
 } from '@ohos/flutter_ohos/src/main/ets/plugin/common/MethodChannel';
 import MethodCall from '@ohos/flutter_ohos/src/main/ets/plugin/common/MethodCall';
-import connection from '@ohos.net.connection';
 import wifiManager from '@ohos.wifiManager';
 
 /** NetworkInfoPlusOhosPlugin **/
@@ -62,12 +61,16 @@ export default class NetworkInfoPlusOhosPlugin implements FlutterPlugin, MethodC
     else if (call.method == "wifiIPv6Address") {
       let ipv6Info: wifiManager.Ipv6Info = await wifiManager.getIpv6Info();
       if (ipv6Info != undefined) {
-        let address = ipv6Info.linkIpv6Address;
+
+        let json= JSON.stringify(ipv6Info);
+        let fixedIpv6Info = JSON.parse(json) as FixedIpv6Info;
+
+        let address = fixedIpv6Info.linkIpV6Address;
         if (address == undefined || address == '') {
-          address = ipv6Info.globalIpv6Address;
+          address = fixedIpv6Info.globalIpV6Address;
         }
         if (address == undefined || address == '') {
-          address = ipv6Info.randomGlobalIpv6Address;
+          address = fixedIpv6Info.randGlobalIpV6Address;
         }
         result.success(address)
       }
@@ -136,4 +139,56 @@ export default class NetworkInfoPlusOhosPlugin implements FlutterPlugin, MethodC
 
     return broadcastParts.join('.');
   }
+}
+
+interface FixedIpv6Info {
+  /**
+   * The link IPv6 address of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  linkIpV6Address: string;
+  /**
+   * The global IPv6 address of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  globalIpV6Address: string;
+  /**
+   * The rand Global IPv6 address of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  randGlobalIpV6Address: string;
+  /**
+   * The gateway of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  gateway: string;
+  /**
+   * The network mask of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  netmask: string;
+  /**
+   * The primary DNS server IPV6 address of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  primaryDNS: string;
+  /**
+   * The secondary DNS server IPV6 address of the Wi-Fi connection
+   *
+   * @syscap SystemCapability.Communication.WiFi.STA
+   * @since 10
+   */
+  secondDNS: string;
 }
