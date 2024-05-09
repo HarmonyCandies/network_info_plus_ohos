@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Update plugin structure
+  
 ## 0.0.3
 
 * Workaround to get Ipv6Info

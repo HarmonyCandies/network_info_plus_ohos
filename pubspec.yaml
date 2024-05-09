@@ -1,7 +1,7 @@
 name: network_info_plus_ohos
 description: Flutter plugin for discovering information (e.g. WiFi details) of the network on OpenHarmony.
 repository: https://github.com/harmonycandies/network_info_plus_ohos
-version: 0.0.3
+version: 0.0.4
 topics:
   - network-info
   - network-info-plus
@@ -41,7 +41,6 @@ flutter:
   plugin:
     platforms:
       ohos:
-        package: com.fluttercandies.network_info_plus_ohos
         pluginClass: NetworkInfoPlusOhosPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
